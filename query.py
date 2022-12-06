@@ -3,25 +3,24 @@ from elasticsearch import Elasticsearch
 es = Elasticsearch( HOST = "http://localhost", PORT = 9200 )
 es = Elasticsearch()
 
-def elastic_match_query(query, index):
+class elastic_query:    
 
-	
+    def elastic_match_query(self, query, index):
+        body = {
+    	    "from":0,
+    	    "size":10,
+    	    "query": {
+        	    "match": {
+       	    	    	"sentence":query
+        		    }
+    		    }
+	    }
 
-	body = {
-    	"from":0,
-    	"size":10,
-    	"query": {
-        	"match": {
-       	    		"sentence":query
-        		}
-    		}
-	}
-
-	res = es.search(index = index, body=body)
-	return res
+	    res = es.search(index = index, body=body)
+	    return res
 
 
-def comb_query(query, index):
+    def comb_query(query, index):
 	body = {
     "from":0,
     "size":2,
